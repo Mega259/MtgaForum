@@ -1,0 +1,3 @@
+.env
+Back/node_modules/*
+Front2/node_modules/*
