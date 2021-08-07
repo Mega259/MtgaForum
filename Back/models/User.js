@@ -30,9 +30,13 @@ var UserSchema = new mongoose.Schema({
     default: false
   },
   role: {
-    type: Integer,
+    type: Number,
     required: true,
-    default: 0
+    default: 0,
+    validate: {
+      validator: Number.isInteger,
+      message: '{VALUE} is not an integer'
+    }
   }
 })
 
@@ -67,4 +71,4 @@ UserSchema.pre('save', async function (next) {
 
 
 
-export default User
+export default UserSchema
