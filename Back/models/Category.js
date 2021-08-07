@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 
-var CategorySchema = new mongoose.Schema({
+const CategorySchema = new mongoose.Schema({
   title: {
     type: String,
     unique: true,
@@ -17,4 +17,4 @@ var CategorySchema = new mongoose.Schema({
   }
 })
 
-var Category = mongoose.model('Category', CategorySchema);
+export default mongoose.model('Category', CategorySchema);

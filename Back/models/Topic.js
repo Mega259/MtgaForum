@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 
-var TopicSchema = new mongoose.Schema({
+const TopicSchema = new mongoose.Schema({
   title: {
     type: String,
     unique: true,
@@ -29,4 +29,4 @@ var TopicSchema = new mongoose.Schema({
   }
 })
 
-var Topic = mongoose.model('Topic', TopicSchema);
+export default mongoose.model('Topic', TopicSchema);
