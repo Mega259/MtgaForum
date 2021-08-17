@@ -26,6 +26,7 @@ async function getElementsFromCollection(collection) {
 }
 
 async function updateElementFromCollection(collection, element) {
+  console.log(element)
   return await db[collection].updateOne({ _id: element._id }, element)
 }
 

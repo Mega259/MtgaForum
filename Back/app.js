@@ -7,6 +7,7 @@ import cors from 'cors'
 import indexRouter from './routes/index.js'
 import usersRouter from './routes/users.js'
 import authRouter from './routes/auth.js';
+import categoryRoute from './routes/categoryRoute.js';
 import verifyToken from './middlewares/verifyToken.js'
 
 const __dirname = process.cwd()
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', verifyToken, usersRouter)
 app.use('/api', authRouter)
+app.use('/category', categoryRoute)
 
 export default app
 
