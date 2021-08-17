@@ -8,17 +8,17 @@ import verifyToken from '../middlewares/verifyToken.js'
 let router = express.Router();
 const collection = "category"
 
-router.post('/', verifyToken, verifyRole, async (req, res) => {
+router.post('/', verifyToken, verifyRole.verifyAdmin, async (req, res) => {
   console.log('Adding Category')
   try {
     const newCat = await addElementToCollection(collection, req.body)
-    res.status(200).json({ "message": "ok", "_id": newCat._id })
+    res.status(200).json({ "message": "ok", "data": newCat })
   } catch (e) {
     res.status(400).json({ "message": e.message })
   }
 })
 
-router.put('/', verifyToken, verifyRole, async (req, res) => {
+router.put('/', verifyToken, verifyRole.verifyAdmin, async (req, res) => {
   console.log('Updating categories')
   try {
     const updateCat = await updateElementFromCollection(collection, req.body)
@@ -28,7 +28,7 @@ router.put('/', verifyToken, verifyRole, async (req, res) => {
   }
 })
 
-router.delete('/', verifyToken, verifyRole, async (req, res) => {
+router.delete('/', verifyToken, verifyRole.verifyAdmin, async (req, res) => {
   console.log('Deleting category')
   try {
     const deletedCat = await deleteElementFromCollection(collection, req.body)
