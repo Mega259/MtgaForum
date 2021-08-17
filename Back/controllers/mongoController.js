@@ -12,12 +12,12 @@ const mongo_pass = process.env.MONGO_PASS
 
 
 const db = {}
-db.mongoose = mongoose
-db.user = User
-db.category = Category
-db.message = Message
-db.topic = Topic
-db.topicReply = TopicReply
+db["mongoose"] = mongoose
+db["user"] = User
+db["category"] = Category
+db["message"] = Message
+db["topic"] = Topic
+db["topicReply"] = TopicReply
 
 db.mongoose.connect(`mongodb://${mongo_user}:${mongo_pass}@${mongo_url}:${mongo_port}`, {
   useNewUrlParser: true,
