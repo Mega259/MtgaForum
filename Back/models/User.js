@@ -30,15 +30,15 @@ var UserSchema = new mongoose.Schema({
     default: false
   },
   role: {
-    type: Integer,
+    type: Number,
     required: true,
-    default: 0
+    default: 2
   }
 })
 
 UserSchema.statics.authenticate = async function (email, password) {
   try {
-    const user = await User.findOne({ email: email })
+    const user = await Users.findOne({ email: email })
     if (!user) {
       throw "User not found"
     }
@@ -65,6 +65,6 @@ UserSchema.pre('save', async function (next) {
   }
 })
 
+const Users = mongoose.model('Users', UserSchema)
 
-
-export default User
+export default Users

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 
-var TopicReplySchema = new mongoose.Schema({
+const TopicReplySchema = new mongoose.Schema({
   topicId: {
     type: String,
     unique: true,
@@ -15,6 +15,10 @@ var TopicReplySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  upvotes: {
+    type: Number,
+    default: 0
+  },
   createdAt: {
     type: Date,
     required: true
@@ -25,4 +29,4 @@ var TopicReplySchema = new mongoose.Schema({
   }
 })
 
-var TopicReply = mongoose.model('TopicReply', TopicReplySchema);
+export default mongoose.model('TopicReply', TopicReplySchema);
