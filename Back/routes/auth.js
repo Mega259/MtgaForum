@@ -47,7 +47,7 @@ router.post('/signin', async function (req, res, next) {
         { expiresIn: "1d" }
       )
 
-      return res.status(200).header("auth-token", token).send({ message: "logged", data: { token } })
+      return res.status(200).header("auth-token", token).send({ message: "logged", data: { token, role: user.role } })
     } else {
       return res.status(400).send({ message: "All parameters needed" })
     }

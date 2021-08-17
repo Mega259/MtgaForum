@@ -6,7 +6,8 @@ axios.defaults.baseURL = ''
 const state = {
   isLoggedIn: false,
   token: null,
-  status: 'inactive'
+  status: 'inactive',
+  role: 2
 }
 
 const getters = {
@@ -15,6 +16,9 @@ const getters = {
   },
   authStatus() {
     return state.status
+  },
+  getRole() {
+    return state.role
   }
 }
 
@@ -47,8 +51,9 @@ const mutations = {
   AUTH_REQUEST() {
     state.status = 'loading'
   },
-  AUTH_SUCCESS(state, token) {
+  AUTH_SUCCESS(state, token, role) {
     state.status = 'success'
+    state.role = role
     state.token = token
   },
   AUTH_ERROR() {

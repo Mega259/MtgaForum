@@ -10,7 +10,6 @@ const mongo_port = process.env.MONGO_PORT
 const mongo_user = process.env.MONGO_USER
 const mongo_pass = process.env.MONGO_PASS
 
-console.log(mongo_url, mongo_port, mongo_user, mongo_pass)
 
 const db = {}
 db.mongoose = mongoose
