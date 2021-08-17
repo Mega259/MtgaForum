@@ -25,6 +25,14 @@ async function getElementsFromCollection(collection) {
   return await db[collection].find()
 }
 
+async function getElementFromCollection(collection, _id) {
+  return await db[collection].findOne({ "_id": _id })
+}
+
+async function getElementsFromCollectionQuery(collection, query) {
+  return await db[collection].findOne(query)
+}
+
 async function updateElementFromCollection(collection, element) {
   console.log(element)
   return await db[collection].updateOne({ _id: element._id }, element)
@@ -34,5 +42,7 @@ export {
   addElementToCollection,
   deleteElementFromCollection,
   getElementsFromCollection,
+  getElementFromCollection,
+  getElementsFromCollectionQuery,
   updateElementFromCollection
 }

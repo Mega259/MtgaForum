@@ -28,7 +28,7 @@ const TopicSchema = new mongoose.Schema({
     required: true
   },
   categoryId: {
-    type: Date,
+    type: String,
     required: true
   }
 })

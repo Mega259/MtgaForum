@@ -9,6 +9,7 @@ import usersRouter from './routes/users.js'
 import authRouter from './routes/auth.js';
 import categoryRoute from './routes/categoryRoute.js';
 import verifyToken from './middlewares/verifyToken.js'
+import topicRoute from './routes/topicRoute.js';
 
 const __dirname = process.cwd()
 
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/users', verifyToken, usersRouter)
 app.use('/api', authRouter)
 app.use('/category', categoryRoute)
+app.use('/topic', topicRoute)
 
 export default app
 
