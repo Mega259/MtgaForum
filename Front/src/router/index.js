@@ -23,6 +23,26 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: Login
+  }, {
+    path: '/forum',
+    name: 'Forum',
+    component: Hall,
+    props: { selected: "forum" }
+  }, {
+    path: '/articles',
+    name: 'Articles',
+    component: Hall,
+    props: { selected: "articles" }
+  }, {
+    path: '/profile',
+    name: 'profile',
+    component: Hall,
+    props: { selected: "profile" }
+  }, {
+    path: '/data',
+    name: 'Data',
+    component: Hall,
+    props: { selected: "data" }
   }
 ]
 

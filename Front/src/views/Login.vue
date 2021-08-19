@@ -40,8 +40,12 @@ export default {
         email: this.username,
         password: this.password,
       });
-      console.log(this.$store);
-      this.$emit("login");
+      if (this.$store.state.login.status == "success") {
+        this.$emit("login");
+        this.$router.push("forum");
+      } else {
+        alert("Username or password not correct");
+      }
     },
   },
 };
