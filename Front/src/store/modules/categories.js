@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Category from '../../models/Categories.js'
 axios.defaults.baseURL = ''
 const state = {
   status: 'inactive',
@@ -17,20 +16,20 @@ const mutations = {
   DOWNLOAD_SUCCESS(state, data) {
     state.status = 'success'
     // console.log(data.data)
-    state.category = 
+    state.categories = data
   }
 }
 
 const actions = {
-  async getCategories({ commit, rootState }) {
+  async getCategories({ commit }) {
     try {
-      const response = await axios.get('http://0.0.0.0:8000/categories')
+      const response = await axios.get('http://0.0.0.0:8000/category')
       if (!response.data) {
         console.log('no data')
         commit('DOWNLOAD_ERROR')
       } else {
-        console.log('response: ', response.data.map(el => new Category(el)))
-        commit('DOWNLOAD_SUCCESS', response.data.map(el => new Category(el)))
+        console.log('response: ', response.data.data)
+        commit('DOWNLOAD_SUCCESS', response.data.data)
       }
     } catch (err) {
       console.log(err)

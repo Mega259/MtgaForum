@@ -54,10 +54,34 @@ router.delete('/', verifyToken, verifyRole.verifyMod, async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  console.log('Getting topic from category')
+  console.log('Getting topics from category')
   try {
     const allCats = await getElementsFromCollectionQuery(collection, req.body)
     res.status(200).json({ "message": "ok", "data": allCats })
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
+router.get('/byId', async (req, res) => {
+  console.log('Getting the topic of id')
+  try {
+    const allCats = await getElementFromCollection(collection, req.query.id)
+    res.status(200).json({ "message": "ok", "data": allCats })
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
+router.put('/move', verifyToken, verifyRole.verifyMod, async (req, res) => {
+  console.log('Moving the topic of category')
+  try {
+    let prev = await getElementFromCollection(collection, req.query.id)
+    prev.categoryId = req.query.categoryId
+    prev.updatedAt = new Date()
+    const updateCat = await updateElementFromCollection(collection, prev)
+    res.status(200).json({ "message": "ok", "data": updateCat })
+
   } catch (e) {
     res.status(400).json({ "message": e.message })
   }

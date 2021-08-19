@@ -1,10 +1,12 @@
 <template>
   <div class="home">
-    <Header @selected="handleSelect"></Header>
+    <Header @selected="handleSelect" :active-index="selected"></Header>
     <Forum v-if="selected == 'forum'" />
     <Profile v-if="selected == 'profile'" />
     <Articles v-if="selected == 'articles'" />
     <Data v-if="selected == 'data'" />
+    <el-button type="primary" @click="funcionprueba">Prueba</el-button>
+    <div>{{ pruebaData }}</div>
   </div>
 </template>
 
@@ -18,6 +20,14 @@ import Articles from "@/components/Articles.vue";
 
 export default {
   name: "Hall",
+  props: {
+    selected: { type: String, default: "forum" },
+  },
+  computed: {
+    pruebaData() {
+      return this.$store.state.category.categories;
+    },
+  },
   components: {
     Header,
     Profile,
@@ -25,14 +35,12 @@ export default {
     Data,
     Articles,
   },
-  data() {
-    return {
-      selected: "forum",
-    };
-  },
   methods: {
     handleSelect(key) {
-      this.selected = key;
+      this.$router.push(key);
+    },
+    funcionprueba() {
+      this.$store.dispatch("getCategories");
     },
   },
 };

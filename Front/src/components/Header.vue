@@ -10,7 +10,11 @@
       <el-menu-item index="data">Data</el-menu-item>
       <el-menu-item index="profile">Profile</el-menu-item>
     </el-menu>
-    <el-button type="text" class="header_container__button" @click="handleLogin"
+    <el-button
+      v-if="login"
+      type="text"
+      class="header_container__button"
+      @click="handleLogin"
       >Log in</el-button
     >
   </div>
@@ -19,10 +23,16 @@
 <script>
 export default {
   name: "Header",
-  data() {
-    return {
-      activeIndex: "forum",
-    };
+  props: {
+    activeIndex: {
+      type: String,
+      default: "forum",
+    },
+  },
+  computed: {
+    login() {
+      return this.$store.state.login.status != "success";
+    },
   },
   methods: {
     handleSelect(key) {
