@@ -4,7 +4,6 @@ import axios from 'axios'
 axios.defaults.baseURL = ''
 
 const state = {
-  isLoggedIn: false,
   token: null,
   status: 'inactive',
   role: 2
