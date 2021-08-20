@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <Header @selected="handleSelect" :active-index="selected"></Header>
-    <Forum v-if="selected == 'forum'" />
-    <Profile v-if="selected == 'profile'" />
-    <Articles v-if="selected == 'articles'" />
-    <Data v-if="selected == 'data'" />
+    <Forum class="maxheight" v-if="selected == 'forum'" />
+    <Profile class="maxheight" v-if="selected == 'profile'" />
+    <Articles class="maxheight" v-if="selected == 'articles'" />
+    <Data class="maxheight" v-if="selected == 'data'" />
     <el-button type="primary" @click="funcionprueba">Prueba</el-button>
     <div>{{ pruebaData }}</div>
   </div>
@@ -45,3 +45,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.maxheight {
+  height: 1000px;
+}
+</style>
