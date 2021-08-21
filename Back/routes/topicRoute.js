@@ -14,7 +14,7 @@ router.post('/', verifyToken, async (req, res) => {
     const constructedElement = req.body
     constructedElement.userId = req.user.id
     constructedElement.createdAt = new Date()
-    constructedElement.updatedAt = new Date()
+    constructedElement.updatedAt = constructedElement.createdAt
     const element = await addElementToCollection(collection, constructedElement)
     res.status(200).json({ "message": "ok", "data": element })
   } catch (e) {
@@ -81,6 +81,28 @@ router.put('/move', verifyToken, verifyRole.verifyMod, async (req, res) => {
     prev.updatedAt = new Date()
     const updateCat = await updateElementFromCollection(collection, prev)
     res.status(200).json({ "message": "ok", "data": updateCat })
+
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
+router.put('/upvote', verifyToken, async (req, res) => {
+  console.log('Upvoting topic')
+  try {
+    const upVotedTopic = await updateElementFromCollection(collection, req.body, { '$inc': { 'upvotes': 1 } })
+    res.status(200).json({ "message": "ok", "data": upVotedTopic })
+
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
+router.put('/downvote', verifyToken, async (req, res) => {
+  console.log('Upvoting topic')
+  try {
+    const upVotedTopic = await updateElementFromCollection(collection, req.body, { '$inc': { 'upvotes': -1 } })
+    res.status(200).json({ "message": "ok", "data": upVotedTopic })
 
   } catch (e) {
     res.status(400).json({ "message": e.message })

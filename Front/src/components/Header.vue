@@ -10,13 +10,22 @@
       <el-menu-item index="data">Data</el-menu-item>
       <el-menu-item index="profile">Profile</el-menu-item>
     </el-menu>
-    <el-button
-      v-if="login"
-      type="text"
-      class="header_container__button"
-      @click="handleLogin"
-      >Log in</el-button
-    >
+    <div>
+      <el-button
+        v-if="login"
+        type="text"
+        class="header_container__button"
+        @click="handleSignIn"
+        >Register</el-button
+      >
+      <el-button
+        v-if="login"
+        type="text"
+        class="header_container__button"
+        @click="handleLogin"
+        >Log in</el-button
+      >
+    </div>
   </div>
 </template>
 
@@ -40,6 +49,9 @@ export default {
     },
     handleLogin() {
       this.$router.push("login");
+    },
+    handleSignIn() {
+      this.$router.push("register");
     },
   },
 };

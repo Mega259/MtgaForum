@@ -12,13 +12,14 @@ const TopicSchema = new mongoose.Schema({
     required: true,
   },
   userId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
-  upvotes: {
-    type: Number,
-    default: 0
-  },
+  upvotes: [{
+    _id: false,
+    userId: { type: mongoose.Types.ObjectId, requirded: true },
+    upvote: { type: Boolean, required: true }
+  }],
   createdAt: {
     type: Date,
     required: true
@@ -28,7 +29,7 @@ const TopicSchema = new mongoose.Schema({
     required: true
   },
   categoryId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true
   }
 })

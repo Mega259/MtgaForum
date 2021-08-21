@@ -33,9 +33,9 @@ async function getElementsFromCollectionQuery(collection, query) {
   return await db[collection].findOne(query)
 }
 
-async function updateElementFromCollection(collection, element) {
+async function updateElementFromCollection(collection, element, options = {}) {
   console.log(element)
-  return await db[collection].updateOne({ _id: element._id }, element)
+  return await db[collection].updateOne({ _id: element._id }, element, options)
 }
 
 export {
