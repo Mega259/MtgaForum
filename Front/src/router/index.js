@@ -37,10 +37,10 @@ const routes = [
     component: Hall,
     props: { selected: "forum" }
   }, {
-    path: '/forum/:name',
+    path: '/forum/:categoryName',
     name: 'ForumCategory',
     component: Hall,
-    props: { selected: "true" }
+    props: { selected: "forum" }
   }, {
     path: '/articles',
     name: 'Articles',

@@ -4,7 +4,6 @@ import mongoose from 'mongoose'
 const TopicReplySchema = new mongoose.Schema({
   topicId: {
     type: mongoose.Types.ObjectId,
-    unique: true,
     required: true,
   },
   content: {

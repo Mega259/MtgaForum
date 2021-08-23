@@ -5,7 +5,6 @@ export default async function verifyToken(req, res, next) {
     if (!token) return res.status(404).send({ error: "Access denied" })
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET)
-        console.log(verified)
         req.user = verified
         next()
     } catch (err) {
