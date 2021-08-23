@@ -17,12 +17,12 @@ async function addElementToCollection(collection, element) {
   return await new db[collection](element).save()
 }
 
-async function deleteElementFromCollection(collection, element) {
-  return await db[collection].findByIdAndDelete(element._id)
+async function deleteElementFromCollection(collection, id) {
+  return await db[collection].findByIdAndDelete(id)
 }
 
-async function getElementsFromCollection(collection) {
-  return await db[collection].find()
+async function getElementsFromCollection(collection, query = {}) {
+  return await db[collection].find(query)
 }
 
 async function getElementFromCollection(collection, _id) {
@@ -33,9 +33,16 @@ async function getElementsFromCollectionQuery(collection, query) {
   return await db[collection].findOne(query)
 }
 
-async function updateElementFromCollection(collection, element) {
-  console.log(element)
-  return await db[collection].updateOne({ _id: element._id }, element)
+async function updateElementFromCollection(collection, element, newElement = {}, options = {}) {
+  try {
+    if (newElement !== {}) {
+      return await db[collection].updateOne({ _id: element._id }, element)
+    } else {
+      return await db[collection].updateOne({ _id: element._id }, newElement, options)
+    }
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export {

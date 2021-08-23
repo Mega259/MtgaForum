@@ -12,11 +12,11 @@ const MessageSchema = new mongoose.Schema({
     required: true,
   },
   senderId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   receiverId: {
-    type: Date,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   createdAt: {

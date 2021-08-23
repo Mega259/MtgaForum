@@ -6,7 +6,6 @@ export default {
     if (!token) return res.status(404).send({ error: "Access denied" })
     try {
       const verified = jwt.verify(token, process.env.TOKEN_SECRET)
-      console.log(verified)
       req.role = verified.role
       if (verified.role == 0) next()
       else res.statuts(404).send({ message: "Access denied" })
@@ -19,7 +18,6 @@ export default {
     if (!token) return res.status(404).send({ error: "Access denied" })
     try {
       const verified = jwt.verify(token, process.env.TOKEN_SECRET)
-      console.log(verified)
       req.role = verified.role
       if (verified.role <= 1) next()
       else res.statuts(404).send({ message: "Access denied" })

@@ -31,7 +31,7 @@ router.put('/', verifyToken, verifyRole.verifyAdmin, async (req, res) => {
 router.delete('/', verifyToken, verifyRole.verifyAdmin, async (req, res) => {
   console.log('Deleting category')
   try {
-    const deletedCat = await deleteElementFromCollection(collection, req.body)
+    const deletedCat = await deleteElementFromCollection(collection, req.query.id)
     res.status(200).json({ "message": "ok", "data": deletedCat })
   } catch (e) {
     res.status(400).json({ "message": e.message })

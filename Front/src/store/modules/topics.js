@@ -2,12 +2,12 @@ import axios from 'axios';
 axios.defaults.baseURL = ''
 const state = {
   status: 'inactive',
-  categories: []
+  topics: []
 }
 
 const getters = {
-  getCategoryStatus(state) { return state.status },
-  getCategories(state) { return state.categories }
+  getTopicStatus(state) { return state.status },
+  getTopicsCategory(state) { return state.topics }
 }
 
 const mutations = {
@@ -16,19 +16,21 @@ const mutations = {
   },
   DOWNLOAD_SUCCESS(state, data) {
     state.status = 'success'
-    state.categories = [...data]
+    console.log(data)
+    state.topics = [...data]
   }
 }
 
 const actions = {
-  async downloadCategories({ commit }) {
+  async downloadTopicsCategory({ commit }, categoryId) {
+    console.log(categoryId)
     try {
-      const response = await axios.get('http://0.0.0.0:8000/category')
+      const response = await axios.get(`http://0.0.0.0:8000/topic?categoryId=${categoryId}`)
       if (!response.data) {
         console.log('no data')
         commit('DOWNLOAD_ERROR')
       } else {
-        commit('DOWNLOAD_SUCCESS', response.data.data)
+        commit('DOWNLOAD_SUCCESS', response.data.data, categoryId)
       }
     } catch (err) {
       console.log(err)

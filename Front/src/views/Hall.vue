@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <Header @selected="handleSelect" :active-index="selected"></Header>
-    <Forum class="maxheight" v-if="selected == 'forum'" />
+    <Forum
+      class="maxheight"
+      v-if="selected == 'forum'"
+      :selected="$route.params.categoryName"
+    />
     <Profile class="maxheight" v-if="selected == 'profile'" />
     <Articles class="maxheight" v-if="selected == 'articles'" />
     <Data class="maxheight" v-if="selected == 'data'" />
@@ -25,7 +29,7 @@ export default {
   },
   computed: {
     pruebaData() {
-      return this.$store.state.category.categories;
+      return this.$store.state.topic.topics;
     },
   },
   components: {
@@ -40,7 +44,10 @@ export default {
       this.$router.push(key);
     },
     funcionprueba() {
-      this.$store.dispatch("getCategories");
+      this.$store.dispatch(
+        "downloadTopicsCategory",
+        "612360e01dca915cf43b8cde"
+      );
     },
   },
 };

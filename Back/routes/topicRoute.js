@@ -1,6 +1,12 @@
 import express from 'express'
-import { addElementToCollection, deleteElementFromCollection, getElementsFromCollection, getElementFromCollection, getElementsFromCollectionQuery, updateElementFromCollection } from '../controllers/mongoQueries.js'
-import jwt from 'jsonwebtoken'
+import {
+  addElementToCollection,
+  deleteElementFromCollection,
+  getElementsFromCollection,
+  getElementFromCollection,
+  getElementsFromCollectionQuery,
+  updateElementFromCollection
+} from '../controllers/mongoQueries.js'
 import verifyRole from '../middlewares/verifyRole.js'
 import verifyToken from '../middlewares/verifyToken.js'
 
@@ -14,7 +20,7 @@ router.post('/', verifyToken, async (req, res) => {
     const constructedElement = req.body
     constructedElement.userId = req.user.id
     constructedElement.createdAt = new Date()
-    constructedElement.updatedAt = new Date()
+    constructedElement.updatedAt = constructedElement.createdAt
     const element = await addElementToCollection(collection, constructedElement)
     res.status(200).json({ "message": "ok", "data": element })
   } catch (e) {
@@ -26,12 +32,10 @@ router.put('/', verifyToken, async (req, res) => {
   console.log('Updating Topic')
   try {
     let prev = await getElementFromCollection(collection, req.body._id)
-    console.log(prev)
-    if (prev.userId === req.user.id) {
+    if (String(prev.userId) === req.user.id) {
       prev.title = req.body.title
       prev.content = req.body.content
       prev.updatedAt = new Date()
-      console.log(prev)
       const updateCat = await updateElementFromCollection(collection, prev)
       res.status(200).json({ "message": "ok", "data": updateCat })
     } else {
@@ -46,7 +50,7 @@ router.put('/', verifyToken, async (req, res) => {
 router.delete('/', verifyToken, verifyRole.verifyMod, async (req, res) => {
   console.log('Deleting topic')
   try {
-    const deletedCat = await deleteElementFromCollection(collection, req.body)
+    const deletedCat = await deleteElementFromCollection(collection, req.query.id)
     res.status(200).json({ "message": "ok", "data": deletedCat })
   } catch (e) {
     res.status(400).json({ "message": e.message })
@@ -56,7 +60,7 @@ router.delete('/', verifyToken, verifyRole.verifyMod, async (req, res) => {
 router.get('/', async (req, res) => {
   console.log('Getting topics from category')
   try {
-    const allCats = await getElementsFromCollectionQuery(collection, req.body)
+    const allCats = await getElementsFromCollection(collection, req.query)
     res.status(200).json({ "message": "ok", "data": allCats })
   } catch (e) {
     res.status(400).json({ "message": e.message })
@@ -82,6 +86,40 @@ router.put('/move', verifyToken, verifyRole.verifyMod, async (req, res) => {
     const updateCat = await updateElementFromCollection(collection, prev)
     res.status(200).json({ "message": "ok", "data": updateCat })
 
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
+router.put('/upvote', verifyToken, async (req, res) => {
+  console.log('Upvoting topic')
+  try {
+    let upVotedTopic = await getElementFromCollection(collection, req.query.id)
+    if (upVotedTopic.upvotes.filter(el => String(el.userId) === req.user.id).length > 0) {
+      upVotedTopic.upvotes = upVotedTopic.upvotes.filter(el => String(el.userId) !== req.user.id)
+      upVotedTopic.upvotes.push({ "userId": req.user.id, "upvote": true })
+    } else {
+      upVotedTopic.upvotes.push({ "userId": req.user.id, "upvote": true })
+    }
+    upVotedTopic.save()
+    res.status(200).json({ "message": "ok", "data": upVotedTopic })
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
+router.put('/downvote', verifyToken, async (req, res) => {
+  console.log('Upvoting topic')
+  try {
+    let upVotedTopic = await getElementFromCollection(collection, req.query.id)
+    if (upVotedTopic.upvotes.filter(el => String(el.userId) === req.user.id).length > 0) {
+      upVotedTopic.upvotes = upVotedTopic.upvotes.filter(el => String(el.userId) !== req.user.id)
+      upVotedTopic.upvotes.push({ "userId": req.user.id, "upvote": false })
+    } else {
+      upVotedTopic.upvotes.push({ "userId": req.user.id, "upvote": false })
+    }
+    upVotedTopic.save()
+    res.status(200).json({ "message": "ok", "data": upVotedTopic })
   } catch (e) {
     res.status(400).json({ "message": e.message })
   }

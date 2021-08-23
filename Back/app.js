@@ -5,12 +5,10 @@ import logger from 'morgan';
 import session from 'express-session'
 import cors from 'cors'
 import indexRouter from './routes/index.js'
-import usersRouter from './routes/users.js'
 import authRouter from './routes/auth.js';
 import categoryRoute from './routes/categoryRoute.js';
-import verifyToken from './middlewares/verifyToken.js'
 import topicRoute from './routes/topicRoute.js';
-
+import topicReplyRoute from './routes/topicReplyRoute.js';
 const __dirname = process.cwd()
 
 
@@ -32,10 +30,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', verifyToken, usersRouter)
 app.use('/api', authRouter)
 app.use('/category', categoryRoute)
 app.use('/topic', topicRoute)
+app.use('/topicReply', topicReplyRoute)
 
 export default app
 

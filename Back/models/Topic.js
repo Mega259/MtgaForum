@@ -1,5 +1,10 @@
 import mongoose from 'mongoose'
 
+const upvotesSchema = new mongoose.Schema({
+  _id: false,
+  userId: { type: mongoose.Types.ObjectId, requirded: true },
+  upvote: { type: Boolean, required: true }
+})
 
 const TopicSchema = new mongoose.Schema({
   title: {
@@ -12,13 +17,10 @@ const TopicSchema = new mongoose.Schema({
     required: true,
   },
   userId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
-  upvotes: {
-    type: Number,
-    default: 0
-  },
+  upvotes: [upvotesSchema],
   createdAt: {
     type: Date,
     required: true
@@ -28,7 +30,7 @@ const TopicSchema = new mongoose.Schema({
     required: true
   },
   categoryId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true
   }
 })
