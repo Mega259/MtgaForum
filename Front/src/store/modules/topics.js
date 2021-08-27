@@ -74,7 +74,21 @@ const actions = {
       console.log(err)
       commit('DOWNLOAD_ERROR')
     }
-  }
+  },
+  async downloadAllTopicsCategory({ commit }, categoryName) {
+    try {
+      const response = await axios.get(`http://0.0.0.0:8000/topic/allTopicsCategory?title=${categoryName}`)
+      if (!response.data) {
+        console.log('no data')
+        commit('DOWNLOAD_ERROR')
+      } else {
+        commit('DOWNLOAD_SUCCESS', response.data.data)
+      }
+    } catch (err) {
+      console.log(err)
+      commit('DOWNLOAD_ERROR')
+    }
+  },
 }
 
 export default {

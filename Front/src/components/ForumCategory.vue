@@ -33,34 +33,17 @@ export default {
     reconstructedName() {
       return this.$route.params.categoryName.replace("-", " ");
     },
-    categoryId() {
-      console.log(
-        "category computed",
-        this.getCategories,
-        console.log(this.$store.getters),
-        this.$store.getters["category/getCategoryByTitle"](
-          this.reconstructedName
-        )
-      );
-      return this.$store.getters["category/getCategoryByTitle"](
-        this.reconstructedName
-      )._id;
-    },
     getFormattedTopicsCategory() {
       return Object.entries(this.$store.getters["topic/getAllTopics"]).filter(
-        (key) => key[0] === this.categoryId
+        (key) => key[0] === this.reconstructedName
       )[0][1];
     },
   },
   async created() {
-    if (this.$store.state.category.status !== "success") {
-      await this.$store.dispatch("category/downloadCategories");
-    }
-
     if (this.$store.state.topic.status !== "success") {
       await this.$store.dispatch(
-        "topic/downloadTopicsCategory",
-        this.categoryId
+        "topic/downloadAllTopicsCategory",
+        this.reconstructedName
       );
     }
   },

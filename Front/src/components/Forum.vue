@@ -51,7 +51,10 @@ export default {
   },
   methods: {
     async handleCategoryClick(category) {
-      await this.$store.dispatch("topic/downloadTopicsCategory", category._id);
+      await this.$store.dispatch(
+        "topic/downloadAllTopicsCategory",
+        category.title
+      );
       this.$router.push({
         name: "ForumCategory",
         params: { categoryName: category.title.replace(" ", "-") },
