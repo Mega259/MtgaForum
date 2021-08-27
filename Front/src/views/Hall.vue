@@ -6,9 +6,11 @@
       v-if="selected == 'forum'"
       :selected="$route.params.categoryName"
     />
-    <Profile class="maxheight" v-if="selected == 'profile'" />
-    <Articles class="maxheight" v-if="selected == 'articles'" />
-    <Data class="maxheight" v-if="selected == 'data'" />
+    <Profile class="maxheight" v-if="selected === 'profile'" />
+    <Articles class="maxheight" v-if="selected === 'articles'" />
+    <Data class="maxheight" v-if="selected === 'data'" />
+    <forum-category v-if="selected === 'categoryTopics'" />
+    <forum-topic v-if="selected === 'topicReplies'" />
     <el-button type="primary" @click="funcionprueba">Prueba</el-button>
     <div>{{ pruebaData }}</div>
   </div>
@@ -21,6 +23,8 @@ import Profile from "@/components/Profile.vue";
 import Forum from "@/components/Forum.vue";
 import Data from "@/components/Data.vue";
 import Articles from "@/components/Articles.vue";
+import ForumCategory from "../components/ForumCategory.vue";
+import ForumTopic from "@/components/ForumTopic.vue";
 
 export default {
   name: "Hall",
@@ -38,16 +42,19 @@ export default {
     Forum,
     Data,
     Articles,
+    ForumCategory,
+    ForumTopic,
   },
   methods: {
     handleSelect(key) {
-      this.$router.push(key);
+      console.log(key);
+      this.$router.push({ name: key });
     },
     funcionprueba() {
-      this.$store.dispatch(
-        "downloadTopicsCategory",
-        "612360e01dca915cf43b8cde"
-      );
+      // this.$store.dispatch(
+      //   "downloadTopicsCategory",
+      //   "612360e01dca915cf43b8cde"
+      // );
     },
   },
 };

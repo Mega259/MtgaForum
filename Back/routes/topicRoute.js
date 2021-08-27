@@ -125,4 +125,15 @@ router.put('/downvote', verifyToken, async (req, res) => {
   }
 })
 
+router.get('/fullTopic', async (req, res) => {
+  console.log('Getting a topic and his responses')
+  try {
+    const topic = await getElementFromCollection(collection, req.query.id)
+    const topicReplies = await getElementsFromCollection("topicReply", { "topicId": req.query.id })
+    res.status(200).json({ "message": "ok", "data": { "topic": topic, "topicReplies": topicReplies } })
+  } catch (e) {
+    res.status(400).json({ "message": e.message })
+  }
+})
+
 export default router

@@ -1,7 +1,6 @@
 <template>
   <div class="box" @click="handleClick">
-    <p>{{ topicData.title }}</p>
-    <p>{{ topicData.description }}</p>
+    <p>{{ topicData.content }}</p>
   </div>
 </template>
 
@@ -15,6 +14,9 @@ export default {
         return { title: "invent", description: "invent" };
       },
     },
+  },
+  methods: {
+    handleClick() {},
   },
 };
 </script>

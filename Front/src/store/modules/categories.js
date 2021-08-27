@@ -7,7 +7,11 @@ const state = {
 
 const getters = {
   getCategoryStatus(state) { return state.status },
-  getCategories(state) { return state.categories }
+  getCategories(state) { return state.categories },
+  getCategoryByTitle: (state) => (title) => {
+    console.log("getCategoryByTitle", title, state.categories)
+    return Object.values(state.categories).filter(el => el.title === title).length > 0 ? Object.values(state.categories).find(el => el.title === title) : {}
+  },
 }
 
 const mutations = {
@@ -15,8 +19,9 @@ const mutations = {
     state.status = 'error'
   },
   DOWNLOAD_SUCCESS(state, data) {
+    console.log("category success", data)
     state.status = 'success'
-    state.categories = [...data]
+    state.categories = data
   }
 }
 
@@ -28,7 +33,8 @@ const actions = {
         console.log('no data')
         commit('DOWNLOAD_ERROR')
       } else {
-        commit('DOWNLOAD_SUCCESS', response.data.data)
+        console.log("downloadCategories", [...response.data.data])
+        commit('DOWNLOAD_SUCCESS', [...response.data.data])
       }
     } catch (err) {
       console.log(err)
@@ -38,6 +44,7 @@ const actions = {
 }
 
 export default {
+  namespaced: true,
   state,
   getters,
   mutations,

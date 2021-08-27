@@ -44,7 +44,7 @@ router.post('/signin', async function (req, res, next) {
         role: user.role
       },
         process.env.TOKEN_SECRET,
-        { expiresIn: "1d" }
+        { expiresIn: "365d" }
       )
 
       return res.status(200).header("auth-token", token).send({ message: "logged", data: { token, role: user.role } })
