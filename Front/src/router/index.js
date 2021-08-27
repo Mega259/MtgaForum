@@ -3,6 +3,7 @@ import Hall from '../views/Hall.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -33,17 +34,22 @@ const routes = [
     component: Register
   }, {
     path: '/forum',
-    name: 'Forum',
+    name: 'forum',
     component: Hall,
-    props: { selected: "forum" }
+    props: { selected: "forum" },
   }, {
     path: '/forum/:categoryName',
     name: 'ForumCategory',
     component: Hall,
-    props: { selected: "forum" }
+    props: { selected: "categoryTopics" },
+  }, {
+    path: '/forum/:categoryName/:topicId',
+    name: 'ForumTopic',
+    component: Hall,
+    props: { selected: "topicReplies" }
   }, {
     path: '/articles',
-    name: 'Articles',
+    name: 'articles',
     component: Hall,
     props: { selected: "articles" }
   }, {
@@ -53,7 +59,7 @@ const routes = [
     props: { selected: "profile" }
   }, {
     path: '/data',
-    name: 'Data',
+    name: 'data',
     component: Hall,
     props: { selected: "data" }
   }
